@@ -1,11 +1,12 @@
 {
-   "name": "mvsmapgeneric",
+   "name": "msfmapsvc",
    "version": "1.0.0",
    "description": "MV Database Map",
    "main": "server.js",
    "scripts": {
       "start": "node server",
-      "dev": "nodemon server"
+      "dev": "nodemon server",
+      "install:svc": "node install.js"
    },
    "repository": {
       "type": "git",
