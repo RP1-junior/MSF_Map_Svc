@@ -39,16 +39,15 @@ class MVSF_Map_Install
 
       if (bResult == false)
       {
-         console.log ('Starting Installation...');
+         console.log ('Installing Starting...');
          
 //         this.#ProcessFabricConfig ();
 
          bResult = await this.#ExecSQL ('MSF_Map.sql', true);
 
          if (bResult)
-            console.log ('Installation successfully completed...');
+            console.log ('Installation Completed...');
       }
-      else console.log ('DB Exists aborting installation...');
    }
 
    #GetToken (sToken)
@@ -82,7 +81,7 @@ class MVSF_Map_Install
       try 
       {
          // Create connection
-         pConn = await sql.connect (pConfig.connectionString);
+         pConn = await sql.connect (pConfig);
 
          // Read SQL file asynchronously
          const sSQLContent = fs.readFileSync (sSQLFile, 'utf8');
@@ -134,18 +133,17 @@ class MVSF_Map_Install
       try 
       {
          // Create connection
-         pConn = await sql.connect (pConfig.connectionString);
+         pConn = await sql.connect (pConfig);
 
          // Check if database exists
-         const [aRows] = await pConn.request ().query (
-            `SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = ?`,
-            [sDB]
-         );
+         const [aRows] = await pConn.request ().query ("SELECT 1 FROM sys.databases WHERE name='" + sDB + '"');
 
          if (aRows.length !== 0)
          {
+            console.log ('Database is already installed.');
             bResult = true;
          }
+         else console.log ('Database does not exists');
 
          await sql.close ();
       } 
