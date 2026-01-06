@@ -1,0 +1,18 @@
+{
+  "build": {
+    "commands": [
+      "git submodule update --init --recursive",
+      "npm install", 
+      "npm run build:railway",
+      "cd dist",
+      "npm install",
+      "npm run install:svc"
+    ]
+  },
+  "deploy": {
+    "commands": [
+      "cd dist",
+      "npm start"
+    ]
+  }
+}
