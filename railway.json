@@ -1,18 +1,10 @@
 {
+  "$schema": "https://railway.app/railway.schema.json",
   "build": {
-    "commands": [
-      "git submodule update --init --recursive",
-      "npm install", 
-      "npm run build:railway",
-      "cd dist",
-      "npm install",
-      "npm run install:svc"
-    ]
+    "buildCommand": "git submodule update --init --recursive && npm install && npm run build:railway && cd dist && npm install && npm run install:svc"
   },
   "deploy": {
-    "commands": [
-      "cd dist",
-      "npm start"
-    ]
-  }
+    "startCommand": "cd dist && npm start"
+  },
+  "environments": {}
 }
