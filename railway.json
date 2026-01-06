@@ -3,7 +3,7 @@
    "build": {
       "buildCommand": "echo metaworld && git submodule update --init --recursive && npm install && npm run build:railway && cd dist && npm install && npm run install:svc"
    },
-  "deploy": {
-    "startCommand": "echo metagate && cd dist && npm start"
-  }
+   "deploy": {
+      "startCommand": "echo metagate && cd dist && npm start"
+   }
 }
