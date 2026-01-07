@@ -41,7 +41,7 @@ class MVSF_Map_Install
       {
          console.log ('Starting Installation...');
          
-//         this.#ProcessFabricConfig ();
+         this.#ProcessFabricConfig ();
 
          bResult = await this.#ExecSQL ('MSF_Map.sql', true, [['[{MSF_Map}]', Settings.SQL.config.database]] );
 
@@ -49,6 +49,27 @@ class MVSF_Map_Install
             console.log ('Installation successfully completed...');
       }
       else console.log ('DB Exists aborting installation...');
+   }
+
+   #ProcessFabricConfig ()
+   {
+      const sFabricPath = path.join (__dirname, 'web', 'public', 'fabric');
+
+      try
+      {
+         let sContent = fs.readFileSync (path.join (sFabricPath, 'sample.msf'), 'utf8');
+
+         // Replace all occurrences of <PUBLIC_DOMAIN> with the actual environment variable
+         // Check for PUBLIC_DOMAIN first, fallback to RAILWAY_PUBLIC_DOMAIN for Railway compatibility
+         const sPublicDomain = process.env.PUBLIC_DOMAIN || process.env.RAILWAY_PUBLIC_DOMAIN || '';
+         sContent = sContent.replace (/<PUBLIC_DOMAIN>/g, sPublicDomain);
+
+         fs.writeFileSync (path.join (sFabricPath, 'fabric.msf'), sContent, 'utf8');
+      }
+      catch (err)
+      {
+         console.log ('Error processing sample.msf: ', err);
+      }
    }
 
    #GetToken (sToken)
