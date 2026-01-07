@@ -17,7 +17,7 @@
       "key":   "<MVSADMINKEY>",
 
       "_comment4": "CompanyID",
-      "sCompanyId": "<MY_COMPANY_ID>"
+      "sCompanyId": "<MYCOMPANYID>"
    },
 
    "SQL": {
