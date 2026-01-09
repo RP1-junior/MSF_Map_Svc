@@ -44,6 +44,8 @@ class MVSF_Map_Install
          
          this.#ProcessFabricConfig ();
 
+         this.Install ();
+
          bResult = await this.#ExecSQL ('MSF_Map.sql', true, [['[{MSF_Map}]', Settings.SQL.config.database]] );
 
          if (bResult)
