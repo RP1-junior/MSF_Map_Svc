@@ -57,8 +57,8 @@ class MVSF_Map_Install
       else console.log ('DB Exists aborting installation...');
 
       console.log ('Running Config Scripts...');
-      this.Install ('sample', '', false);
-      this.Install ('objects', 'objects', true);
+      this.Install ('sample', '', true);
+      this.Install ('objects', 'objects', false);
    }
 
    Install (sSrcFolder, sDstFolder, bNext)
