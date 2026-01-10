@@ -46,8 +46,6 @@ class MVSF_Map_Install
 
          if (bResult)
          {
-            this.Install ('objects', 'objects');
-
             this.Install ('sample', '');
             bResult = await this.#ExecSQL2 ([['[{MSF_Map}]', Settings.SQL.config.database]] );
 
@@ -60,6 +58,8 @@ class MVSF_Map_Install
          }
       }
       else console.log ('DB Exists aborting installation...');
+
+      this.Install ('objects', 'objects');
    }
 
    Install (sSrcFolder, sDstFolder)
@@ -67,15 +67,18 @@ class MVSF_Map_Install
       const sSrcPath = path.join (__dirname, '..', sSrcFolder);
       const sDstPath = path.join (__dirname, 'web/' + sDstFolder);
 
-      fs.cp (sSrcPath, sDstPath, { recursive: true }, (err) => {
-         if (err)
-            console.error ('Error copying folder:', err);
-         else
-         {
-            console.log ('Sample Files copied');
-            this.Run ();
-         }
-      });
+      if (fs.existsSync (sSrcPath))
+      {
+         fs.cp (sSrcPath, sDstPath, { recursive: true }, (err) => {
+            if (err)
+               console.error ('Error copying folder:', err);
+            else
+            {
+               console.log ('Sample Files copied');
+               this.Run ();
+            }
+         });
+      }
    }
 
    async #ExecSQL2 (asToken)
