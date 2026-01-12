@@ -12,3 +12,4 @@ dist_mysql/
 node_modules/
 
 *.vcxproj.user
+.DS_Store
